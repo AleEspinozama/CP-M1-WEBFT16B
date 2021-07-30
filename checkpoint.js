@@ -39,6 +39,20 @@ const {
 
 var isAncestor = function(genealogyTree, ancestor, descendant){
   // Tu código aca:
+  if (genealogyTree[ancestor].length <= 0) return false;
+  var family=false;
+
+  for (var i = 0; i < genealogyTree[ancestor].length; i++){
+    var temp= genealogyTree[ancestor][i];
+   // console.log("Esta hija es: "+  temp + " , comparo con " + descendant);
+      if (temp==descendant) {
+        return true;
+    }       
+      else{
+       family= family || isAncestor(genealogyTree, genealogyTree[ancestor][i], descendant);
+      }
+  }
+  return family;
 
 }
 
