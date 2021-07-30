@@ -239,7 +239,36 @@ var mergeLinkedLists = function(linkedListOne, linkedListTwo){
 
 
 var cardGame = function(playerOneCards, playerTwoCards){
-  // Tu código aca:
+   // Tu código aca:
+   var castilloP1= 100;
+   var castilloP2= 100;
+
+  while(playerOneCards.size()>0){
+  // sacamos primera carta: ATAQUE
+  var ataqueplayer1= playerOneCards.dequeue(); 
+  var ataqueplayer2= playerTwoCards.dequeue();
+  //sacamos segunda carta: DEFENSA
+  var defensaplayer1= playerOneCards.dequeue();
+  var defensaplayer2= playerTwoCards.dequeue();
+
+  //checamos si hay daño sobre los castillos
+  var danioplayerOne = defensaplayer1.defense - ataqueplayer2.attack;
+  var danioPlayerTwo = defensaplayer2.defense - ataqueplayer1.attack;
+
+  if(danioplayerOne<0) castilloP1 += danioplayerOne; //restar puntos de castillo player 1
+  if(danioPlayerTwo<0) castilloP2 += danioPlayerTwo;//restar puntos de castillo player 2
+
+  // La función deberá devolver un string indicando al ganador: 'PLAYER ONE' o 'PLAYER TWO' (Respetar mayúsculas) o
+// 'TIE' en el caso de empate
+
+  if(castilloP1<=0) return  'PLAYER TWO';
+  if(castilloP2<=0) return  'PLAYER ONE';
+
+  }
+
+  if(castilloP1>castilloP2) return  'PLAYER ONE';
+  if(castilloP1<castilloP2) return  'PLAYER TWO';
+  if(castilloP1==castilloP2) return  'TIE';
 
 }
 
@@ -265,6 +294,14 @@ var cardGame = function(playerOneCards, playerTwoCards){
 BinarySearchTree.prototype.height = function(){
   // Tu código aca:
 
+  if(this.left===null && this.right===null) return 1; //sin hijos
+
+  if(!this.right) return 1 + this.left.height();        //hijos a la izq
+
+  if(!this.left) return 1 + this.right.height();         //hijos a la der
+
+  return 1 + Math.max(this.left.height(), this.right.height());    //elijo el que tenga más hijos entre der e izq
+
 }
 
 
@@ -287,7 +324,20 @@ BinarySearchTree.prototype.height = function(){
 var binarySearch = function (array, target) {
   // Tu código aca:
 
+  let start= 0;
+  let end= array.length-1;
+  let mid;
+
+  while (start<end){
+    mid=Math.floor((start + end)/2);
+    if(array[mid]===target) return mid;
+
+    if(array[mid]>target) end=mid-1;
+    else start=mid+1;
+  }
+  return -1;
 }
+
 
 // EJERCICIO 9
 // Ordená un arreglo de objetos usando un bubble sort pero con algunas particularidades.
